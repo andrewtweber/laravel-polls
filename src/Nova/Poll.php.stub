@@ -1,0 +1,137 @@
+<?php
+
+namespace Andrewtweber\Nova;
+
+use Causelabs\ResourceIndexLink\ResourceIndexLink;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\ID;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Textarea;
+
+class Poll extends Resource
+{
+    /**
+     * The model the resource corresponds to.
+     *
+     * @var string
+     */
+    public static $model = \Andrewtweber\Models\Poll::class;
+
+    /**
+     * The single value that should be used to represent the resource when being displayed.
+     *
+     * @var string
+     */
+    public static $title = 'title';
+
+    public static $group = 'Other';
+
+    /**
+     * The columns that should be searched.
+     *
+     * @var array
+     */
+    public static $search = [
+        'title',
+    ];
+
+    public static $with = [
+        'options',
+    ];
+
+    /**
+     * @return string
+     */
+    public function title()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Get the fields displayed by the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function fields(Request $request)
+    {
+        return [
+            ID::make()->sortable(),
+
+            ResourceIndexLink::make('Title')
+                ->sortable()
+                ->rules('required', 'max:255'),
+
+            Number::make('Min Choices', 'min_choices')
+                ->default(1)
+                ->min(1)
+                ->max(5)
+                ->step(1)
+                ->required(),
+
+            Number::make('Max Choices', 'max_choices')
+                ->default(1)
+                ->min(1)
+                ->max(5)
+                ->step(1)
+                ->rules('gte:min_choices')
+                ->required(),
+
+            Boolean::make('Show options in random order', 'randomize'),
+
+            Textarea::make('Options', 'options_text')
+                ->help('Add one option per line')
+                ->onlyOnForms()
+                ->hideWhenUpdating()
+                ->required(),
+
+            HasMany::make('PollOptions', 'options'),
+        ];
+    }
+
+    /**
+     * Get the cards available for the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function cards(Request $request)
+    {
+        return [];
+    }
+
+    /**
+     * Get the filters available for the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function filters(Request $request)
+    {
+        return [];
+    }
+
+    /**
+     * Get the lenses available for the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function lenses(Request $request)
+    {
+        return [];
+    }
+
+    /**
+     * Get the actions available for the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function actions(Request $request)
+    {
+        return [];
+    }
+}
