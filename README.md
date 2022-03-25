@@ -8,8 +8,7 @@ Install this package as a dependency using [Composer](https://getcomposer.org).
 composer require andrewtweber/laravel-polls
 ```
 
-The formatting helpers and username validation rule use config files.
-If you want to change the config, run:
+To publish the vendor files (this should happen automatically):
 
 ```
 php artisan vendor:publish --provider="Andrewtweber\Providers\PollsServiceProvider"
@@ -21,7 +20,10 @@ This will publish the files `config/polls.php`, translations, and views.
 
 If you have Laravel Nova, copy the `src/Nova/*.stub` files into your Nova models directory.
 
+This will allow you to create and update polls.
+
 ## Todo
 
 * Additional views not using Bootstrap
 * More config options (User model, enable or disable guest votes, etc.)
+* Named routes

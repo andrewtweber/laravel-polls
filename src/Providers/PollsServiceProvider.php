@@ -2,6 +2,8 @@
 
 namespace Andrewtweber\Providers;
 
+use Andrewtweber\Models\Poll;
+use Andrewtweber\Observers\PollObserver;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
@@ -35,5 +37,7 @@ class PollsServiceProvider extends ServiceProvider
         }
 
         $this->mergeConfigFrom($config, 'polls');
+
+        Poll::observe(PollObserver::class);
     }
 }

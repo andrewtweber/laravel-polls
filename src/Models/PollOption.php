@@ -15,7 +15,7 @@ use Illuminate\Foundation\Auth\User;
 /**
  * Class PollOption
  *
- * @package App\Models
+ * @package Andrewtweber\Models
  *
  * @property int                        $id
  * @property int                        $poll_id

@@ -16,7 +16,7 @@ use Slimak\SluggedModel;
 /**
  * Class Poll
  *
- * @package App\Models
+ * @package Andrewtweber\Models
  *
  * @property int                        $id
  * @property string                     $title
