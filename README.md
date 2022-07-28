@@ -1,5 +1,7 @@
 # Laravel Polls
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/andrewtweber/laravel-polls/tree/main.svg?style=shield&circle-token=f33276137ef8043a342239229d6fc0aed3e82354)](https://dl.circleci.com/status-badge/redirect/gh/andrewtweber/laravel-polls/tree/main)
+
 ## Installation
 
 Install this package as a dependency using [Composer](https://getcomposer.org).
