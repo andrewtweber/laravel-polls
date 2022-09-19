@@ -1,6 +1,6 @@
 # Laravel Polls
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/andrewtweber/laravel-polls/tree/main.svg?style=shield&circle-token=f33276137ef8043a342239229d6fc0aed3e82354)](https://dl.circleci.com/status-badge/redirect/gh/andrewtweber/laravel-polls/tree/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/andrewtweber/laravel-polls/tree/main.svg?style=shield&circle-token=fd7302af8a39c2fec7e686a61cce10ffb00763dd)](https://dl.circleci.com/status-badge/redirect/gh/andrewtweber/laravel-polls/tree/main)
 
 ## Installation
 
