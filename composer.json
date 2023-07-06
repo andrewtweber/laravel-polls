@@ -52,7 +52,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Andrewtweber\\Providers\\SnaccsServiceProvider"
+                "Andrewtweber\\Providers\\PollsServiceProvider"
             ]
         }
     },
