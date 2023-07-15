@@ -1,10 +1,12 @@
 # Laravel Polls
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/andrewtweber/laravel-polls/tree/main.svg?style=shield&circle-token=fd7302af8a39c2fec7e686a61cce10ffb00763dd)](https://dl.circleci.com/status-badge/redirect/gh/andrewtweber/laravel-polls/tree/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/andrewtweber/laravel-polls/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/andrewtweber/laravel-polls/tree/main)
 
 ## Installation
 
 Install this package as a dependency using [Composer](https://getcomposer.org).
+
+(This is not actually published yet, as it is in pre-alpha. I do not follow semantic versioning, so use at your own risk)
 
 ``` bash
 composer require andrewtweber/laravel-polls
