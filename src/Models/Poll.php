@@ -222,8 +222,9 @@ class Poll extends SluggedModel
 
         $formatted = collect($request->get('options'))->map(function ($option_id) use ($ip) {
             return [
-                'ip_address' => DB::raw("INET6_ATON('{$ip}')"),
+                'poll_id' => $this->getKey(),
                 'poll_option_id' => $option_id,
+                'ip_address' => DB::raw("INET6_ATON('{$ip}')"),
             ];
         })->all();
 

@@ -30,7 +30,7 @@ class VoteRequest extends FormRequest
             ],
             'options.*' => [
                 Rule::exists('poll_options', 'id')->where(function ($query) {
-                    $query->where('poll_id', $this->poll->id);
+                    $query->where('poll_id', $this->poll->getKey());
                 }),
             ],
         ];
