@@ -16,8 +16,10 @@ class PollObserver
      */
     public function deleting(Poll $poll)
     {
-        $poll->guestVotes()->delete();
-        $poll->votes()->delete();
-        $poll->options()->delete();
+        if ($poll->isForceDeleting()) {
+            $poll->guestVotes()->delete();
+            $poll->votes()->delete();
+            $poll->options()->delete();
+        }
     }
 }

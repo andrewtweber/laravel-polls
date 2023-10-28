@@ -21,6 +21,7 @@ class CreatePolls extends Migration
             $table->integer('max_choices')->default(1);
             $table->boolean('randomize')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

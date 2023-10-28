@@ -18,7 +18,9 @@ To publish the vendor files (this should happen automatically):
 php artisan vendor:publish --provider="Andrewtweber\Providers\PollsServiceProvider"
 ```
 
-This will publish the files `config/polls.php`, translations, and views.
+This will publish the files `config/polls.php`, migrations, translations, and views.
+
+Add the `VotesInPolls` trait to your user class.
 
 ## Laravel Nova
 

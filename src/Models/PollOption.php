@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User;
 
 /**
@@ -17,24 +18,27 @@ use Illuminate\Foundation\Auth\User;
  *
  * @package Andrewtweber\Models
  *
- * @property int                        $id
- * @property int                        $poll_id
- * @property string                     $text
- * @property int                        $weight
- * @property Carbon                     $created_at
- * @property Carbon                     $updated_at
+ * @property int                       $id
+ * @property int                       $poll_id
+ * @property string                    $text
+ * @property int                       $weight
+ * @property Carbon                    $created_at
+ * @property Carbon                    $updated_at
+ * @property Carbon                    $deleted_at
  *
- * @property int                        $value
- * @property string                     $color
- * @property int                        $total_votes
+ * @property int                       $value
+ * @property string                    $color
+ * @property int                       $total_votes
  *
- * @property Poll                       poll
- * @property Collection|PollVote[]      votes
- * @property Collection|PollGuestVote[] guestVotes
- * @property Collection|User[]          users
+ * @property Poll                      poll
+ * @property Collection<PollVote>      votes
+ * @property Collection<PollGuestVote> guestVotes
+ * @property Collection<User>          users
  */
 class PollOption extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'text',
         'weight',
@@ -45,7 +49,7 @@ class PollOption extends Model
      */
     public function poll(): BelongsTo
     {
-        return $this->belongsTo(Poll::class);
+        return $this->belongsTo(config('polls.models.poll', Poll::class));
     }
 
     /**
@@ -53,7 +57,7 @@ class PollOption extends Model
      */
     public function votes(): HasMany
     {
-        return $this->hasMany(PollVote::class);
+        return $this->hasMany(config('polls.models.vote', PollVote::class));
     }
 
     /**
@@ -61,7 +65,7 @@ class PollOption extends Model
      */
     public function guestVotes(): HasMany
     {
-        return $this->hasMany(PollGuestVote::class);
+        return $this->hasMany(config('polls.models.guest_vote', PollGuestVote::class));
     }
 
     /**
@@ -69,14 +73,14 @@ class PollOption extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'poll_votes');
+        return $this->belongsToMany(config('polls.models.user', User::class), 'poll_votes');
     }
 
     /**
      * These properties are appended by the SQL query
+     * @return int
      * @see Poll::loadOptions()
      *
-     * @return int
      */
     public function getValueAttribute(): int
     {

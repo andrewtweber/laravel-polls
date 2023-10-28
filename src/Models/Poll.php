@@ -8,6 +8,7 @@ use Andrewtweber\Models\Pivots\PollVote;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
@@ -18,26 +19,29 @@ use Slimak\SluggedModel;
  *
  * @package Andrewtweber\Models
  *
- * @property int                        $id
- * @property string                     $title
- * @property string                     $slug
- * @property int                        $min_choices
- * @property int                        $max_choices
- * @property bool                       $randomize
- * @property Carbon                     $created_at
- * @property Carbon                     $updated_at
+ * @property int                       $id
+ * @property string                    $title
+ * @property string                    $slug
+ * @property int                       $min_choices
+ * @property int                       $max_choices
+ * @property bool                      $randomize
+ * @property Carbon                    $created_at
+ * @property Carbon                    $updated_at
+ * @property Carbon                    $deleted_at
  *
- * @property string                     $input_type
- * @property string|null                $help_text
- * @property string                     $url
- * @property int                        $max_votes
+ * @property string                    $input_type
+ * @property string|null               $help_text
+ * @property string                    $url
+ * @property int                       $max_votes
  *
- * @property Collection|PollOption[]    options
- * @property Collection|PollVote[]      votes
- * @property Collection|PollGuestVote[] guestVotes
+ * @property Collection<PollOption>    options
+ * @property Collection<PollVote>      votes
+ * @property Collection<PollGuestVote> guestVotes
  */
 class Poll extends SluggedModel
 {
+    use SoftDeletes;
+
     protected $table = 'polls';
 
     protected $fillable = [
@@ -64,7 +68,7 @@ class Poll extends SluggedModel
      */
     public function options(): HasMany
     {
-        return $this->hasMany(PollOption::class);
+        return $this->hasMany(config('polls.models.option', PollOption::class));
     }
 
     /**
@@ -72,7 +76,7 @@ class Poll extends SluggedModel
      */
     public function votes(): HasMany
     {
-        return $this->hasMany(PollVote::class);
+        return $this->hasMany(config('polls.models.vote', PollVote::class));
     }
 
     /**
@@ -80,7 +84,7 @@ class Poll extends SluggedModel
      */
     public function guestVotes(): HasMany
     {
-        return $this->hasMany(PollGuestVote::class);
+        return $this->hasMany(config('polls.models.guest_vote', PollGuestVote::class));
     }
 
     /**
@@ -147,9 +151,11 @@ class Poll extends SluggedModel
 
         $values = explode(PHP_EOL, $text);
 
+        $optionClass = config('polls.models.option');
+
         $options = [];
         foreach ($values as $value) {
-            $options[] = new PollOption([
+            $options[] = new $optionClass([
                 'text' => trim($value),
             ]);
         }
@@ -160,7 +166,7 @@ class Poll extends SluggedModel
     /**
      * Eager-load options in correct order.
      */
-    public function loadOptions()
+    public function loadOptions(): void
     {
         $this->load([
             'options' => function ($query) {
@@ -181,14 +187,14 @@ class Poll extends SluggedModel
      * @param User        $user
      * @param VoteRequest $request
      */
-    public function storeVotes(User $user, VoteRequest $request)
+    public function storeVotes(User $user, VoteRequest $request): void
     {
-        $user->votes()->where('poll_id', $this->id)->delete();
+        $user->votes()->where('poll_id', $this->getKey())->delete();
 
         $options = collect($request->get('options'))->mapWithKeys(function ($option_id) {
             return [
                 $option_id => [
-                    'poll_id' => $this->id,
+                    'poll_id' => $this->getKey(),
                 ],
             ];
         })->all();
@@ -199,20 +205,19 @@ class Poll extends SluggedModel
     /**
      * @param VoteRequest $request
      */
-    public function storeGuestVotes(VoteRequest $request)
+    public function storeGuestVotes(VoteRequest $request): void
     {
         $ip = $request->getClientIp();
 
-        PollGuestVote::where('poll_id', $this->id)->fromIp($ip)->delete();
+        $this->guestVotes()->fromIp($ip)->delete();
 
         $formatted = collect($request->get('options'))->map(function ($option_id) use ($ip) {
             return [
-                'poll_id' => $this->id,
                 'ip_address' => DB::raw("INET6_ATON('{$ip}')"),
                 'poll_option_id' => $option_id,
             ];
         })->all();
 
-        PollGuestVote::insert($formatted);
+        $this->guestVotes()->insert($formatted);
     }
 }

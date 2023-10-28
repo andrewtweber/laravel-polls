@@ -19,6 +19,7 @@ class CreatePollOptions extends Migration
             $table->string('text');
             $table->integer('weight')->default(0);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('poll_id')->references('id')->on('polls');
         });

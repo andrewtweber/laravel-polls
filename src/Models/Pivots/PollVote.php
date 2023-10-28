@@ -32,7 +32,7 @@ class PollVote extends Pivot
      */
     public function poll(): BelongsTo
     {
-        return $this->belongsTo(Poll::class);
+        return $this->belongsTo(config('polls.models.poll', Poll::class));
     }
 
     /**
@@ -40,7 +40,7 @@ class PollVote extends Pivot
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(config('polls.models.user', User::class));
     }
 
     /**
@@ -48,6 +48,6 @@ class PollVote extends Pivot
      */
     public function pollOption(): BelongsTo
     {
-        return $this->belongsTo(PollOption::class);
+        return $this->belongsTo(config('polls.models.option', PollOption::class));
     }
 }
