@@ -73,7 +73,6 @@ class Poll extends Resource
             Number::make('Max Choices', 'max_choices')
                 ->default(1)
                 ->min(1)
-                ->max(5)
                 ->step(1)
                 ->rules('gte:min_choices')
                 ->required(),

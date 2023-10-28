@@ -5,7 +5,6 @@ namespace Andrewtweber\Tests\Unit\Models;
 use Andrewtweber\Models\Poll;
 use Andrewtweber\Models\PollOption;
 use Andrewtweber\Tests\LaravelTestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PollTest extends LaravelTestCase
 {

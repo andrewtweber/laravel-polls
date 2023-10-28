@@ -19,7 +19,7 @@ class PollObserver
         if ($poll->isForceDeleting()) {
             $poll->guestVotes()->delete();
             $poll->votes()->delete();
-            $poll->options()->delete();
+            $poll->options()->forceDelete();
         }
     }
 }
