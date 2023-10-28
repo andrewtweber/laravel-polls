@@ -17,8 +17,8 @@ class CreatePollGuestVotes extends Migration
             $table->unsignedBigInteger('poll_id')->index();
             $table->unsignedBigInteger('poll_option_id')->index();
 
-            $table->foreign('poll_id')->references('id')->on('polls');
-            $table->foreign('poll_option_id')->references('id')->on('poll_options');
+            $table->foreign('poll_id')->references('id')->on('polls')->cascadeOnDelete();
+            $table->foreign('poll_option_id')->references('id')->on('poll_options')->cascadeOnDelete();
         });
 
         DB::statement('ALTER TABLE `poll_guest_votes` ADD `ip_address` VARBINARY(16)');

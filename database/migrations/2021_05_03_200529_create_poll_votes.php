@@ -19,9 +19,9 @@ class CreatePollVotes extends Migration
             $table->unsignedBigInteger('poll_option_id')->index();
 
             $table->primary(['poll_id', 'user_id', 'poll_option_id']);
-            $table->foreign('poll_id')->references('id')->on('polls');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('poll_option_id')->references('id')->on('poll_options');
+            $table->foreign('poll_id')->references('id')->on('polls')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('poll_option_id')->references('id')->on('poll_options')->cascadeOnDelete();
         });
     }
 
