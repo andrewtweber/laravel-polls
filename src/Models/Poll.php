@@ -105,13 +105,17 @@ class Poll extends SluggedModel
             return null;
         }
         if ($min === $max) {
-            return __('polls.min_choices', ['num' => $min]);
+            return __('polls::polls.min_choices', ['num' => $min]);
         }
         if ($min === 1) {
-            return __('polls.max_choices', ['num' => $max]);
+            if ($max === $this->options()->count()) {
+                return __('polls::polls.any_choice');
+            }
+
+            return __('polls::polls.max_choices', ['num' => $max]);
         }
 
-        return __('polls.range_choices', ['min' => $min, 'max' => $max]);
+        return __('polls::polls.range_choices', ['min' => $min, 'max' => $max]);
     }
 
     /**

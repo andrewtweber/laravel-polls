@@ -21,7 +21,7 @@
                 </div>
             </div>
             @if ($show_counts ?? false)
-                <span class="text-muted">{{ trans_choice('polls.num_votes', $option->total_votes) }}</span>
+                <span class="text-muted">{{ trans_choice('polls::polls.num_votes', $option->total_votes) }}</span>
             @endif
         </div>
     </div>
@@ -29,6 +29,6 @@
 
 <p class="mb-0">
     <a href="{{ ($permalink ?? false) ? ($permalink === true ? $poll->url : $permalink) : '/' }}?vote">
-        <i class="fas fa-poll mr-2"></i>{{ (($user && $user->votedIn($poll)) || count($guest_votes) > 0) ? __('polls.Change my vote') : __('polls.Vote') }}
+        <i class="fas fa-poll mr-2"></i>{{ (($user && $user->votedIn($poll)) || count($guest_votes) > 0) ? __('polls::polls.Change my vote') : __('polls::polls.Vote') }}
     </a>
 </p>

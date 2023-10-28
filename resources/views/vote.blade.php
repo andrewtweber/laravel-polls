@@ -25,9 +25,9 @@
 
     <div class="mt-4">
         <button type="submit" class="btn btn-primary">
-            <i class="fas fa-paper-plane"></i>{{ __('polls.Vote') }}
+            <i class="fas fa-paper-plane"></i>{{ __('polls::polls.Vote') }}
         </button>
         <a class="btn btn-link"
-           href="{{ ($permalink ?? false) ? ($permalink === true ? $poll->url : $permalink) : '/' }}?results">{{ __('polls.See results') }}</a>
+           href="{{ ($permalink ?? false) ? ($permalink === true ? $poll->url : $permalink) : '/' }}?results">{{ __('polls::polls.See results') }}</a>
     </div>
 </form>

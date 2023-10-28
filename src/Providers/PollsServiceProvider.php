@@ -22,15 +22,19 @@ class PollsServiceProvider extends ServiceProvider
     {
         $config = realpath(__DIR__ . '/../../config/polls.php');
         $lang = realpath(__DIR__ . '/../../lang');
+        $migrations = realpath(__DIR__ . '/../database/migrations');
         $views = realpath(__DIR__ . '/../../resources/views');
 
         if ($this->app instanceof LaravelApplication) {
-            $this->loadViewsFrom($views, 'snaccs');
+            $this->loadMigrationsFrom($migrations);
+            $this->loadTranslationsFrom($lang, 'polls');
+            $this->loadViewsFrom($views, 'polls');
 
             $this->publishes([
                 $config => config_path('polls.php'),
                 $lang => lang_path('polls'),
-                $views => resource_path('views/vendor/snaccs'),
+                $migrations => database_path('migrations'),
+                $views => resource_path('views/vendor/laravel-polls'),
             ]);
         } elseif ($this->app instanceof LumenApplication) {
             $this->app->configure('polls');

@@ -10,8 +10,9 @@ return [
 
     // Help text
     'min_choices' => 'Select :num choices.',
+    'any_choice' => 'Select all that apply.',
     'max_choices' => 'Select up to :num choices.',
-    'range_choices' => 'Select :min-:max choices."',
+    'range_choices' => 'Select :min-:max choices.',
 
     'validation' => [
         'invalid' => 'Invalid option',
