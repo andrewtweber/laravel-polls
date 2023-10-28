@@ -48,10 +48,10 @@ class VoteRequest extends FormRequest
         $max = $poll->max_choices;
 
         return [
-            'options.*.exists' => __('polls.validation.invalid'),
-            'options.required' => trans_choice('polls.validation.min_choices', $min),
-            'options.min' => trans_choice('polls.validation.min_choices', $min),
-            'options.max' => trans_choice('polls.validation.max_choices', $max),
+            'options.*.exists' => __('polls::polls.validation.invalid'),
+            'options.required' => trans_choice('polls::polls.validation.min_choices', $min),
+            'options.min' => trans_choice('polls::polls.validation.min_choices', $min),
+            'options.max' => trans_choice('polls::polls.validation.max_choices', $max),
         ];
     }
 }
