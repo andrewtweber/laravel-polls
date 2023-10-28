@@ -48,9 +48,6 @@ jobs:
           paths:
             - vendor
 
-      # prepare the database
-      - run: php artisan migrate --env=testing --database=mysql --force
-
       # run tests
       - run: ./vendor/bin/phpunit
 
