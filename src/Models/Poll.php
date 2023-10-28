@@ -33,6 +33,7 @@ use Slimak\SluggedModel;
  * @property string|null               $help_text
  * @property string                    $url
  * @property int                       $max_votes
+ * @property int                       $total_votes
  *
  * @property Collection<PollOption>    options
  * @property Collection<PollVote>      votes
@@ -136,6 +137,14 @@ class Poll extends SluggedModel
     public function getMaxVotesAttribute(): int
     {
         return max($this->options->pluck('value')->all());
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalVotesAttribute(): int
+    {
+        return array_sum($this->options->pluck('value')->all());
     }
 
     /**
