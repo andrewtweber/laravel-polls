@@ -27,7 +27,7 @@ use Slimak\SluggedModel;
  * @property bool                      $randomize
  * @property Carbon                    $created_at
  * @property Carbon                    $updated_at
- * @property Carbon                    $deleted_at
+ * @property ?Carbon                   $deleted_at
  *
  * @property string                    $input_type
  * @property string|null               $help_text
@@ -35,9 +35,9 @@ use Slimak\SluggedModel;
  * @property int                       $max_votes
  * @property int                       $total_votes
  *
- * @property Collection<PollOption>    options
- * @property Collection<PollVote>      votes
- * @property Collection<PollGuestVote> guestVotes
+ * @property Collection<PollOption>    $options
+ * @property Collection<PollVote>      $votes
+ * @property Collection<PollGuestVote> $guestVotes
  */
 class Poll extends SluggedModel
 {

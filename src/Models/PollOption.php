@@ -24,16 +24,18 @@ use Illuminate\Foundation\Auth\User;
  * @property int                       $weight
  * @property Carbon                    $created_at
  * @property Carbon                    $updated_at
- * @property Carbon                    $deleted_at
+ * @property ?Carbon                   $deleted_at
  *
  * @property int                       $value
  * @property string                    $color
  * @property int                       $total_votes
+ * @property-read int                  $guest_votes_count - from DB aggregate queries
+ * @property-read int                  $votes_count - from DB aggregate queries
  *
- * @property Poll                      poll
- * @property Collection<PollVote>      votes
- * @property Collection<PollGuestVote> guestVotes
- * @property Collection<User>          users
+ * @property Poll                      $poll
+ * @property Collection<PollVote>      $votes
+ * @property Collection<PollGuestVote> $guestVotes
+ * @property Collection<User>          $users
  */
 class PollOption extends Model
 {

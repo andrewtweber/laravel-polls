@@ -18,7 +18,7 @@ class PollsServiceProvider extends ServiceProvider
     /**
      * Bootstrap the application services.
      */
-    public function boot()
+    public function boot(): void
     {
         $config = realpath(__DIR__ . '/../../config/polls.php');
         $lang = realpath(__DIR__ . '/../../lang');
@@ -36,6 +36,7 @@ class PollsServiceProvider extends ServiceProvider
                 $migrations => database_path('migrations'),
                 $views => resource_path('views/vendor/laravel-polls'),
             ]);
+        /** @phpstan-ignore-next-line */
         } elseif ($this->app instanceof LumenApplication) {
             $this->app->configure('polls');
         }
