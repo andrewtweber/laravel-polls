@@ -45,8 +45,20 @@ jobs:
   test_backend:
     docker:
       - image: cimg/php:8.1
+
+      - image: cimg/mysql:8.0
+        command: mysqld --default-authentication-plugin=mysql_native_password
+        environment:
+          MYSQL_USER: forge
+          MYSQL_DATABASE: forge
+          MYSQL_ROOT_PASSWORD: ''
+          MYSQL_PASSWORD: 'forge'
+
     steps:
       - *attach_workspace
+      - run:
+          name: Wait for MySQL
+          command: dockerize -wait tcp://localhost:3306
       - run:
           name: PHP Unit tests
           command: ./vendor/bin/phpunit
