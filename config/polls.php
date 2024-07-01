@@ -20,4 +20,6 @@ return [
         'guest_vote' => \Andrewtweber\Models\Pivots\PollGuestVote::class,
     ],
 
+    'guest_ipv6_cidr' => 64,
+
 ];

@@ -2,6 +2,7 @@
 
 namespace Andrewtweber\Models\Pivots;
 
+use Andrewtweber\Support\GuestIdentifier;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Facades\DB;
@@ -22,10 +23,19 @@ class PollGuestVote extends Pivot
     public $timestamps = false;
 
     /**
+     * @param Builder         $query
+     * @param GuestIdentifier $id
+     */
+    public function scopeForGuest(Builder $query, GuestIdentifier $id): void
+    {
+        $query->fromIp($id->ip_address);
+    }
+
+    /**
      * @param Builder     $query
      * @param string|null $ip_address
      */
-    public function scopeFromIp(Builder $query, ?string $ip_address)
+    public function scopeFromIp(Builder $query, ?string $ip_address): void
     {
         if ($ip_address) {
             $query->where('ip_address', DB::raw("INET6_ATON('{$ip_address}')"));

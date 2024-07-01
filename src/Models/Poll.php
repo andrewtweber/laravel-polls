@@ -5,6 +5,7 @@ namespace Andrewtweber\Models;
 use Andrewtweber\Http\Requests\VoteRequest;
 use Andrewtweber\Models\Pivots\PollGuestVote;
 use Andrewtweber\Models\Pivots\PollVote;
+use Andrewtweber\Support\GuestIdentifier;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -216,15 +217,15 @@ class Poll extends SluggedModel
      */
     public function storeGuestVotes(VoteRequest $request): void
     {
-        $ip = $request->getClientIp();
+        $id = GuestIdentifier::make($request);
 
-        $this->guestVotes()->fromIp($ip)->delete();
+        $this->guestVotes()->forGuest($id)->delete();
 
-        $formatted = collect($request->get('options'))->map(function ($option_id) use ($ip) {
+        $formatted = collect($request->get('options'))->map(function ($option_id) use ($id) {
             return [
                 'poll_id' => $this->getKey(),
                 'poll_option_id' => $option_id,
-                'ip_address' => DB::raw("INET6_ATON('{$ip}')"),
+                'ip_address' => DB::raw("INET6_ATON('{$id->ip_address}')"),
             ];
         })->all();
 
