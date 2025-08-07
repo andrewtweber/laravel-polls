@@ -30,13 +30,13 @@
     "require": {
         "php": "^8.2",
         "andrewtweber/slimak": "*",
-        "laravel/framework": "^10.0|^11.0|^12.0",
+        "laravel/framework": "^11.0|^12.0",
         "leth/ip-address": "^2.0"
     },
     "require-dev": {
-        "larastan/larastan": "^1.0",
-        "orchestra/testbench": "^6.17",
-        "phpunit/phpunit": "^9"
+        "larastan/larastan": "^2.0",
+        "orchestra/testbench": "^9.0",
+        "phpunit/phpunit": "^11"
     },
     "config": {
         "sort-packages": true
