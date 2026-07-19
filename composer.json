@@ -30,7 +30,7 @@
     "require": {
         "php": "^8.2",
         "andrewtweber/slimak": "*",
-        "laravel/framework": "^11.0|^12.0",
+        "laravel/framework": "^11.0|^12.0|^13.0",
         "leth/ip-address": "^2.0"
     },
     "require-dev": {
